@@ -2,7 +2,7 @@
 
 xor- exclusive or là một hoạt động nhị phân, nghĩa là bit kết quả đánh giá một nếu chỉ có chính xác một trong các bit được đặt.  
 Ví dụ: Trong nhị phân:  
-7 ^ 10~ 0111 ^ 1010= 1101 ~13
+'7^ 10~ 0111^ 1010= 1101 ~13'
 ```Python
 
 
