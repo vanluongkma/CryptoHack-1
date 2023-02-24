@@ -1,1 +1,17 @@
 # XOR Starter  
+
+xor- exclusive or là một hoạt động nhị phân, nghĩa là bit kết quả đánh giá một nếu chỉ có chính xác một trong các bit được đặt.  
+Ví dụ: Trong nhị phân:  
+7 ^ 10~ 0111 ^ 1010= 1101 ~13
+```Python
+
+
+from pwn import xor
+a= xor(13, 'label')
+print(a)
+
+
+```  
+Lưu ý: XOR một số với chính nó số lẻ lần kết quả là số Bản thân.  
+XOR một số chẵn số lần với chính nó, kết quả là 0.  
+Ngoài ra XOR với 0 luôn là số chính nó.  
