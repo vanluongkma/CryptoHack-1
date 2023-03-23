@@ -1,4 +1,4 @@
-#Chinese Remainder Theorem
+# Chinese Remainder Theorem
 ```Python
 a = [2,3,5]
 n = [5,11,17]
