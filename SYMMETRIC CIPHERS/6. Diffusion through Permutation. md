@@ -1,0 +1,84 @@
+# Diffusion through Permutation
+```Python
+def shift_rows(s):
+    s[0][1], s[1][1], s[2][1], s[3][1] = s[1][1], s[2][1], s[3][1], s[0][1]
+    s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
+    s[0][3], s[1][3], s[2][3], s[3][3] = s[3][3], s[0][3], s[1][3], s[2][3]
+
+
+def inv_shift_rows(s):
+    s[1][1], s[2][1], s[3][1], s[0][1] = s[0][1], s[1][1], s[2][1], s[3][1]
+    s[2][2], s[3][2], s[0][2], s[1][2] = s[0][2], s[1][2], s[2][2], s[3][2]
+    s[3][3], s[0][3], s[1][3], s[2][3] = s[0][3], s[1][3], s[2][3], s[3][3]
+
+
+# learned from http://cs.ucsb.edu/~koc/cs178/projects/JT/aes.c
+xtime = lambda a: (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
+
+
+def mix_single_column(a):
+    # see Sec 4.1.2 in The Design of Rijndael
+    t = a[0] ^ a[1] ^ a[2] ^ a[3]
+    u = a[0]
+    a[0] ^= t ^ xtime(a[0] ^ a[1])
+    a[1] ^= t ^ xtime(a[1] ^ a[2])
+    a[2] ^= t ^ xtime(a[2] ^ a[3])
+    a[3] ^= t ^ xtime(a[3] ^ u)
+
+
+def mix_columns(s):
+    for i in range(4):
+        mix_single_column(s[i])
+
+
+def inv_mix_columns(s):
+    # see Sec 4.1.3 in The Design of Rijndael
+    for i in range(4):
+        u = xtime(xtime(s[i][0] ^ s[i][2]))
+        v = xtime(xtime(s[i][1] ^ s[i][3]))
+        s[i][0] ^= u
+        s[i][1] ^= v
+        s[i][2] ^= u
+        s[i][3] ^= v
+
+    mix_columns(s)
+
+
+state = [
+    [108, 106, 71, 86],
+    [96, 62, 38, 72],
+    [42, 184, 92, 209],
+    [94, 79, 8, 54],
+]
+
+inv_mix_columns(state)
+inv_shift_rows(state)
+print(bytes(sum(state, [])))
+```
+-------
+## Giải thích:
+-   Đoạn mã này triển khai một số phần của thuật toán Advanced Encryption Standard (AES) cho kích thước khối 128 bit.
+
+-   Cụ thể, mã gồm các hàm sau:
+
+    -   `shift_rows(s)`: Hàm này thực hiện dịch chuyển các hàng của ma trận `s` ở bước "ShiftRows" trong quá trình mã hóa AES. Cụ thể là hoán đổi giá trị của các phần tử trong cùng một cột của s, theo một số quy tắc nhất định.
+
+    -   `inv_shift_rows(s)`: Hàm này thực hiện dịch chuyển ngược lại các hàng của ma trận s ở bước "InvShiftRows" trong quá trình giải mã AES. Cụ thể là hoán đổi giá trị của các phần tử trong cùng một cột của s, theo một số quy tắc nhất định.
+
+    -   `xtime(a)`: Đây là một hàm lambda (hàm vô danh) định nghĩa một biểu thức tính giá trị mới của `a` dựa trên phép dịch trái một bit (a << 1) và phép XOR với hằng số `0x1B`. Nếu bit cao nhất của a là 1, thì hằng số `0x1B` được XOR với kết quả của phép dịch trái để đảm bảo tính chất không tuyến tính của phép trộn dữ liệu trong AES.
+
+    -   `mix_single_column(a)`: Hàm này thực hiện phép trộn dữ liệu trên một cột `a` ở bước "MixColumns" trong quá trình mã hóa AES. Cụ thể là tính giá trị mới của từng phần tử trong `a` dựa trên một số phép XOR và dịch trái được tính toán từ a theo quy tắc nhất định.
+
+    -   `mix_columns(s)`: Hàm này thực hiện phép trộn dữ liệu trên từng cột của ma trận s ở bước "MixColumns" trong quá trình mã hóa AES. Cụ thể là áp dụng hàm mix_single_column(a) lên từng cột của s để trộn dữ liệu trong cùng một cột lại với nhau.
+
+    -   `inv_mix_columns(s)`: Hàm này thực hiện phép trộn dữ liệu ngược lại trên từng cột của ma trận s ở bước "InvMixColumns" trong quá trình giải mã AES. Cụ thể là áp dụng hàm mix_single_column(a) lên từng cột của s, sau đó áp dụng một số phép tính khác để hoàn tác lại quá trình trộn dữ liệucủa bước "MixColumns" trong quá trình mã hóa.
+
+    -   `sub_bytes(s)`: Hàm này thực hiện thay thế từng byte trong ma trận `s` bằng giá trị tương ứng trong `S-box`, một bảng thay thế được định nghĩa trước đó, ở bước "SubBytes" trong quá trình mã hóa AES.
+
+    -   `inv_sub_bytes(s)`: Hàm này thực hiện thay thế ngược lại từng byte trong ma trận s bằng giá trị tương ứng trong `S-box` đảo ngược, ở bước "InvSubBytes" trong quá trình giải mã AES.
+
+    -   `add_round_key(s, w, rnd)`: Hàm này thực hiện phép `XOR` giữa ma trận `s` và một phần của khóa mở rộng `w` ở vòng mã hóa thứ `rnd`, ở bước "AddRoundKey" trong quá trình mã hóa AES.
+
+    -   `key_expansion(key)`: Hàm này thực hiện mở rộng khóa key ban đầu thành một chuỗi khóa con `w` để sử dụng trong quá trình mã hóa AES. Quá trình mở rộng khóa này dựa trên các phép tính như phép XOR, phép thay thế và dịch chuyển bit.
+
+-   Các hàm này được sử dụng để thực hiện các bước cơ bản trong quá trình mã hóa và giải mã AES, bao gồm dịch chuyển hàng, trộn cột, thay thế byte, phép XOR khóa, và mở rộng khóa. Chúng là các phép tính chủ chốt trong thuật toán AES, giúp bảo mật và bảo vệ dữ liệu được mã hóa.
