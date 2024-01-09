@@ -1,4 +1,4 @@
-# nfinite Descent
+# Infinite Descent
 ![image](https://github.com/Caycon/CryptoHack/assets/97203151/325c144e-7348-407c-a54c-39d4e324ba91)
 - Chall cho ta 2 số p, q là 2 số nguyên tố khá gần nhau nên ta sẽ giải bằng Fermat Attack.
 - Code python:
