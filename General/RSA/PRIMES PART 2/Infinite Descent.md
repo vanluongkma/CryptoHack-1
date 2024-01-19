@@ -1,7 +1,6 @@
-# Infinite Descent
-![image](https://github.com/Caycon/CryptoHack/assets/97203151/325c144e-7348-407c-a54c-39d4e324ba91)
-- Chall cho ta 2 số p, q là 2 số nguyên tố khá gần nhau nên ta sẽ giải bằng Fermat Attack.
-- Code python:
+**Infinite Descent**
+![image](https://hackmd.io/_uploads/SkUQ2yUKT.png)
+- Challenge cho ta 2 số q, p khá gần nhau nên ta sẽ sử dụng `Fermat attack`.
 ```Python
 import math
 
@@ -57,3 +56,4 @@ from Crypto.Util.number import *
 if __name__ == '__main__':
     main()
 ```
+![image](https://hackmd.io/_uploads/rJiW31UYp.png)
