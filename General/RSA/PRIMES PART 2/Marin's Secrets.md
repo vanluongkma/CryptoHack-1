@@ -1,6 +1,6 @@
-# Marin's Secrets
-![image](https://github.com/Caycon/CryptoHack/assets/97203151/7adcfd18-f0a0-49a6-bdd6-a5a624acd3c6)
-- Challenge tạo 2 số nguyên tố `Mersenne` p, q (Số nguyên tố có dạng 2^x- 1).
+**Marin's Secrets**
+![image](https://hackmd.io/_uploads/HyYS3yLY6.png)
+- Challenge tạo 2 số nguyên tố Mersenne p, q (Số nguyên tố có dạng 2^x- 1).
 - Challenge này ta có thể brute force tìm p, q được tuy nhiên n bài này ta có thể phân tích ra được nên ta sẽ phân tích ra.
 ```Python
 from Crypto.Util.number import *
@@ -14,4 +14,4 @@ d= pow(e, -1, phi)
 flag= pow(c, d, n)
 print(long_to_bytes(flag))
 ```
-![image](https://github.com/Caycon/CryptoHack/assets/97203151/ed97994a-85b5-4919-af7d-27991d8cb167)
+![image](https://hackmd.io/_uploads/ByqK3kLtT.png)
