@@ -1,6 +1,6 @@
-# Fast Primes
-![image](https://github.com/Caycon/CryptoHack/assets/97203151/60671568-00e9-430c-8509-8830ea0753f9)
-- Challenge này ta chỉ chú ý vào cách lấy dữ liệu trong file pem và cách giải mã bằng key để có được cipher.
+**Fast Primes**
+![image](https://hackmd.io/_uploads/By9b6y8F6.png)
+- Challenge này ta chỉ chú ý vào cách lấy dữ liệu trong file pem và cách giải mã bằng key (PKSC1) để có được cipher.
 ```Python
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
@@ -19,3 +19,4 @@ print(cipher)
 plaintext = cipher.decrypt(c)
 print(plaintext)
 ```
+![image](https://hackmd.io/_uploads/rJRBpJ8Ya.png)
