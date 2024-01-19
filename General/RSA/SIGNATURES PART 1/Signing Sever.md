@@ -1,24 +1,19 @@
-# Signing Sever
-![image](https://github.com/Caycon/CryptoHack/assets/97203151/f1b846ec-7934-4567-8e9c-c2c8a398299c)
-- Bài này tương đối dễ ta nhận 'secret' r gửi lại là thu được flag.
-- Code python:
+**Signing Server**
+![image](https://hackmd.io/_uploads/ryqDei8Fp.png)
+- Challenge ta chỉ cần gửi ngược lại `C` là có được flag.
 ```Python
 from pwn import *
-from json import *
-from Crypto.Util.number import *
-f= remote("socket.cryptohack.org", 13374)
-f.recvline()
-f.sendline(dumps({"option": "get_pubkey"}))
-a = loads(f.recvline())
-n = int(a["N"], 16)
-print(n)
-e= int(a["e"], 16)
-print(e)
-f.sendline(dumps({"option": "get_secret"}))
-a = loads(f.recvline())
-c= a["secret"]
-f.sendline(dumps({"option": "sign", "msg": (c)}))
-a = loads(f.recvline())
-flag= long_to_bytes(int(a["signature"], 16))
-print(flag)
+import json
+
+r = remote("socket.cryptohack.org", 13374)
+r.recvline()
+r.sendline(json.dumps({'option': 'get_secret'}))
+data = json.loads(r.recvline().decode())
+ciphertext = data['secret'][2:]
+r.sendline(json.dumps({'option': 'sign', 'msg': ciphertext}).encode())
+data = json.loads(r.recvline().decode())
+print(data)
+r.close()
 ```
+![image](https://hackmd.io/_uploads/SJ0ZHsUFp.png)
+![image](https://hackmd.io/_uploads/HJ9CSs8Yp.png)
