@@ -3,7 +3,6 @@
 - Challenge cho ta file `pem` ta mở file và decode pem đó bằng tool trên `dcode.fr` va thu được d chính là flag.
 - File `pem` là file lưu trữ các khóa mật mã.
 - Thông tin trong file pem được mã hóa bằng `base64` nên ta hoàn toàn có thể tìm được plantext chỉ bằng cách decode base64. 
-![image](https://hackmd.io/_uploads/rywnwtsOT.png)
 - Hoặc ta cũng có thể dùng code để lấy dữ liệu trong file pem nếu không mở được file pem.
 ```Python
 from Crypto.PublicKey import *
