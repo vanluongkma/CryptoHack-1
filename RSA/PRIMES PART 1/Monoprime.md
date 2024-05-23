@@ -11,5 +11,5 @@ phi= n- 1
 d= pow(e, -1, phi)
 decode =pow(ct, d, n)
 print(long_to_bytes(decode))
-```
+```  
 ![image](https://hackmd.io/_uploads/ryYHZUrKT.png)
