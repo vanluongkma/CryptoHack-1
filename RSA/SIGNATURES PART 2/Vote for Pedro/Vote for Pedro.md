@@ -4,8 +4,6 @@
  elif your_input['option'] == 'vote':
             vote = int(your_input['vote'], 16)
             verified_vote = long_to_bytes(pow(vote, ALICE_E, ALICE_N))
-
-            # remove padding
             vote = verified_vote.split(b'\00')[-1]
 
             if vote == b'VOTE FOR PEDRO':
