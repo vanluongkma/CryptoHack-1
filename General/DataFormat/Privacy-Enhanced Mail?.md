@@ -8,6 +8,6 @@
 from Crypto.PublicKey import *
 f = open('privacy_enhanced_mail_1f696c053d76a78c2c531bb013a92d4a.pem','rb').read()
 flag = RSA.importKey(f)
-print(flag.d)      
+print(flag.d)  
 ```
 ![image](https://github.com/Caycon/CryptoHack/assets/97203151/2821d9e7-23c9-4f02-b876-5b427fd99003)
