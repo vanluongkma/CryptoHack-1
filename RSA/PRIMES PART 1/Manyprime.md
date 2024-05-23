@@ -1,6 +1,6 @@
 **Manyprime**
 ![image](https://hackmd.io/_uploads/rJ4T7ISKa.png)
-- Challenge này cho ta n được tạo thành từ nhiều số nguyên tố khác nhau mà không phải 2 số như RSA ta thường gặp.
+- Challenge này cho ta n được tạo thành từ nhiều số nguyên tố khác nhau mà không phải 2 số như RSA ta thường gặp.  
 - Tuy nhiên ta vẫn decrypt như bình thường.
 ```Python
 from Crypto.Util.number import *
