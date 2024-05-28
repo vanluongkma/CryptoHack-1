@@ -15,7 +15,6 @@ ciphertext = bytes.fromhex(ciphertext)
 
 with open("words.txt") as f:
     words = [w.strip() for w in f.readlines()]
-
 for w in words:
     key = hashlib.md5(w.encode()).digest()
     cipher = AES.new(key, AES.MODE_ECB)
