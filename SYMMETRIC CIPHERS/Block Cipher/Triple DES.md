@@ -7,7 +7,6 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import*
 from pwn import xor
 import requests
-
 def encrypt_flag(key):
 	url = "https://aes.cryptohack.org/triple_des/encrypt_flag/"
 	url += key
