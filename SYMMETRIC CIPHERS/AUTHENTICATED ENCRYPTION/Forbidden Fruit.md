@@ -1,5 +1,6 @@
 
 ## Forbidden Fruit
+
 ![image](https://hackmd.io/_uploads/Hk0AjRj5T.png)
 - Trước hết ta sẽ tìm hiểu về Galois Counter Mode (GCM).
 - Tham khảo ở [đây](https://eprint.iacr.org/2016/475.pdf)  và [đây](https://www.youtube.com/watch?v=V2TlG3JbGp0&t=40s) trước nha.
